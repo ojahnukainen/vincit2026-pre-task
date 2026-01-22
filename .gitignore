@@ -1,0 +1,19 @@
+node_modules
+# Keep environment variables out of version control
+.env
+
+# Prisma generated client
+/src/generated/prisma
+
+# SQLite database files
+*.db
+*.db-journal
+
+# Claude configuration
+.claude/
+
+# macOS
+.DS_Store
+
+# Test coverage
+coverage/
