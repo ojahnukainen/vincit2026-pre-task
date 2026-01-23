@@ -317,6 +317,29 @@ describe('Booking Endpoints', () => {
 
         expect(res.status).toBe(409);
       });
+
+      it('should return 400 when update creates booking in the past', async () => {
+        // Create two bookings
+        const booking1 = await prisma.booking.create({
+          data: {
+            userId: testUser.id,
+            roomId: testRoom.id,
+            startTime: new Date('2026-01-21T10:00:00Z'),
+            endTime: new Date('2026-01-21T12:00:00Z'),
+          },
+        });
+
+        // Try to move booking1 to past time
+        const res = await request(app)
+          .put(`/bookings/${booking1.id}`)
+          .send({
+            startTime: '2026-01-01T15:00:00Z',
+            endTime: '2026-01-01T17:00:00Z',
+          });
+
+        expect(res.status).toBe(400);
+        expect(res.body.error.message).toBe('Cannot create bookings in the past');
+      });
     });
 
     describe('DELETE /bookings/:id', () => {

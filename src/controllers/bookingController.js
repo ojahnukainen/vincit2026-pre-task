@@ -175,6 +175,14 @@ export const update = async (req, res, next) => {
         error.statusCode = 409;
         throw error;
       }
+      // Prevent bookings in the past
+      const currentTime = timeUtils.getCurrentTime();
+      
+      if (data.startTime < currentTime || data.endTime < currentTime) {
+        const error = new Error('Cannot update bookings to the past');
+        error.statusCode = 400;
+        throw error;
+      }
     }
 
     const booking = await bookingService.updateBooking(id, data);
