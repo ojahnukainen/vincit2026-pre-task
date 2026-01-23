@@ -2,6 +2,7 @@ import { z } from 'zod';
 import * as bookingService from '../services/bookingService.js';
 import * as userService from '../services/userService.js';
 import * as roomService from '../services/roomService.js';
+import timeUtils, { getCurrentTime } from '../utils/time.js';
 
 const dateSchema = z.string().datetime({ message: 'Invalid ISO 8601 date format' }).transform((str) => new Date(str));
 
@@ -98,6 +99,15 @@ export const create = async (req, res, next) => {
     if (!room) {
       const error = new Error('Room not found');
       error.statusCode = 404;
+      throw error;
+    }
+
+    // Prevent bookings in the past
+    const currentTime = timeUtils.getCurrentTime();
+    console.log(currentTime, data.startTime, data.endTime);
+    if (data.startTime < currentTime || data.endTime < currentTime) {
+      const error = new Error('Cannot create bookings in the past');
+      error.statusCode = 400;
       throw error;
     }
 

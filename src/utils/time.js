@@ -1,0 +1,7 @@
+/**                                                                                                                                                                                                                                                                                                                              
+   * Get the current time (mockable in tests)                                                                                                                                                                                                                                                                                      
+   * @returns {Date}                                                                                                                                                                                                                                                                                                               
+   */                                                                                                                                                                                                                                                                                                                              
+  export const getCurrentTime = () => new Date(); 
+
+  export default { getCurrentTime };
