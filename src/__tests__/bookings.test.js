@@ -19,7 +19,7 @@ describe('Booking Endpoints', () => {
     });
 
     testRoom = await prisma.room.create({
-      data: { name: 'Test Room', capacity: 10, pricePerHour: 50 },
+      data: { name: 'Test Room', capacity: 10},
     });
 
     // Mock current time to a fixed point freeze time for testing bookings in the past. 19.1.2026 09:00 UTC
@@ -177,7 +177,7 @@ describe('Booking Endpoints', () => {
 
       it('should allow booking for different room at same time', async () => {
         const anotherRoom = await prisma.room.create({
-          data: { name: 'Another Room', capacity: 5, pricePerHour: 30 },
+          data: { name: 'Another Room', capacity: 5 },
         });
 
         await prisma.booking.create({
@@ -338,7 +338,7 @@ describe('Booking Endpoints', () => {
           });
 
         expect(res.status).toBe(400);
-        expect(res.body.error.message).toBe('Cannot create bookings in the past');
+        expect(res.body.error.message).toBe('Cannot update bookings to the past');
       });
     });
 

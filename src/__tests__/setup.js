@@ -50,7 +50,6 @@ export const createTestFixtures = async (prisma) => {
     data: {
       name: 'Test Room',
       capacity: 10,
-      pricePerHour: 50.0,
     },
   });
 

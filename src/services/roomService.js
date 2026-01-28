@@ -4,14 +4,14 @@ import prisma from '../utils/prisma.js';
  * @typedef {Object} CreateRoomData
  * @property {string} name - Room name
  * @property {number} capacity - Room capacity
- * @property {number} pricePerHour - Price per hour
+ * @property {string} keyFeatures - Key features
  */
 
 /**
  * @typedef {Object} UpdateRoomData
  * @property {string} [name] - Room name
  * @property {number} [capacity] - Room capacity
- * @property {number} [pricePerHour] - Price per hour
+ * @property {string} [keyFeatures] - Key features
  */
 
 /**
@@ -78,5 +78,17 @@ export const deleteRoom = async (id) => {
 export const getRoomByName = async (name) => {
   return prisma.room.findUnique({
     where: { name },
+  });
+};
+
+/**
+ * Get Rooms by filter
+ * @param {string} filter - Filter value
+ * @returns {Promise<import('../generated/prisma').Room[]>}
+ */
+export const getRoomsByFilter = async (filter) => {
+  return prisma.room.findMany({
+    where: { keyFeatures: 
+      { contains: filter, mode: 'insensitive' } },
   });
 };

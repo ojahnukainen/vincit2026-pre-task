@@ -4,13 +4,11 @@ import * as roomService from '../services/roomService.js';
 const createRoomSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   capacity: z.number().int().positive('Capacity must be a positive integer'),
-  pricePerHour: z.number().positive('Price per hour must be positive'),
 });
 
 const updateRoomSchema = z.object({
   name: z.string().min(1, 'Name cannot be empty').optional(),
   capacity: z.number().int().positive('Capacity must be a positive integer').optional(),
-  pricePerHour: z.number().positive('Price per hour must be positive').optional(),
 });
 
 const idParamSchema = z.object({

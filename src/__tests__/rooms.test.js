@@ -24,8 +24,8 @@ describe('Room Endpoints', () => {
     it('should return all rooms sorted by name', async () => {
       await prisma.room.createMany({
         data: [
-          { name: 'Room B', capacity: 10, pricePerHour: 50 },
-          { name: 'Room A', capacity: 5, pricePerHour: 30 },
+          { name: 'Room B', capacity: 10, },
+          { name: 'Room A', capacity: 5, },
         ],
       });
 
@@ -41,7 +41,7 @@ describe('Room Endpoints', () => {
   describe('GET /rooms/:id', () => {
     it('should return a room by ID', async () => {
       const room = await prisma.room.create({
-        data: { name: 'Test Room', capacity: 10, pricePerHour: 50 },
+        data: { name: 'Test Room', capacity: 10 },
       });
 
       const res = await request(app).get(`/rooms/${room.id}`);
@@ -49,7 +49,6 @@ describe('Room Endpoints', () => {
       expect(res.status).toBe(200);
       expect(res.body.name).toBe('Test Room');
       expect(res.body.capacity).toBe(10);
-      expect(res.body.pricePerHour).toBe(50);
     });
 
     it('should return 404 for non-existent room', async () => {
@@ -64,19 +63,18 @@ describe('Room Endpoints', () => {
     it('should create a new room', async () => {
       const res = await request(app)
         .post('/rooms')
-        .send({ name: 'Conference Room', capacity: 20, pricePerHour: 100 });
+        .send({ name: 'Conference Room', capacity: 20 });
 
       expect(res.status).toBe(201);
       expect(res.body.name).toBe('Conference Room');
       expect(res.body.capacity).toBe(20);
-      expect(res.body.pricePerHour).toBe(100);
       expect(res.body.id).toBeDefined();
     });
 
     it('should return 400 for missing name', async () => {
       const res = await request(app)
         .post('/rooms')
-        .send({ capacity: 10, pricePerHour: 50 });
+        .send({ capacity: 10 });
 
       expect(res.status).toBe(400);
     });
@@ -84,28 +82,20 @@ describe('Room Endpoints', () => {
     it('should return 400 for invalid capacity', async () => {
       const res = await request(app)
         .post('/rooms')
-        .send({ name: 'Test', capacity: -5, pricePerHour: 50 });
+        .send({ name: 'Test', capacity: -5 });
 
       expect(res.status).toBe(400);
       expect(res.body.error.message).toContain('positive');
     });
 
-    it('should return 400 for invalid pricePerHour', async () => {
-      const res = await request(app)
-        .post('/rooms')
-        .send({ name: 'Test', capacity: 10, pricePerHour: 0 });
-
-      expect(res.status).toBe(400);
-    });
-
     it('should return 409 for duplicate room name', async () => {
       await prisma.room.create({
-        data: { name: 'Existing Room', capacity: 10, pricePerHour: 50 },
+        data: { name: 'Existing Room', capacity: 10},
       });
 
       const res = await request(app)
         .post('/rooms')
-        .send({ name: 'Existing Room', capacity: 5, pricePerHour: 30 });
+        .send({ name: 'Existing Room', capacity: 10 });
 
       expect(res.status).toBe(409);
       expect(res.body.error.message).toBe('Room name already exists');
@@ -113,19 +103,6 @@ describe('Room Endpoints', () => {
   });
 
   describe('PUT /rooms/:id', () => {
-    it('should update a room', async () => {
-      const room = await prisma.room.create({
-        data: { name: 'Test Room', capacity: 10, pricePerHour: 50 },
-      });
-
-      const res = await request(app)
-        .put(`/rooms/${room.id}`)
-        .send({ pricePerHour: 75 });
-
-      expect(res.status).toBe(200);
-      expect(res.body.pricePerHour).toBe(75);
-      expect(res.body.name).toBe('Test Room');
-    });
 
     it('should return 404 for non-existent room', async () => {
       const res = await request(app)
@@ -137,10 +114,10 @@ describe('Room Endpoints', () => {
 
     it('should return 409 for duplicate name on update', async () => {
       await prisma.room.create({
-        data: { name: 'Existing Room', capacity: 10, pricePerHour: 50 },
+        data: { name: 'Existing Room', capacity: 10},
       });
       const room = await prisma.room.create({
-        data: { name: 'Test Room', capacity: 5, pricePerHour: 30 },
+        data: { name: 'Test Room', capacity: 5},
       });
 
       const res = await request(app)
@@ -154,7 +131,7 @@ describe('Room Endpoints', () => {
   describe('DELETE /rooms/:id', () => {
     it('should delete a room', async () => {
       const room = await prisma.room.create({
-        data: { name: 'Delete Room', capacity: 10, pricePerHour: 50 },
+        data: { name: 'Delete Room', capacity: 10},
       });
 
       const res = await request(app).delete(`/rooms/${room.id}`);
