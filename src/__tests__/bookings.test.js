@@ -3,24 +3,19 @@ import app from '../app.js';
 import prisma from '../utils/prisma.js';
 import { jest } from '@jest/globals';
 import timeUtils, { getCurrentTime } from '../utils/time.js';
+import { resetDatabase, createTestFixtures } from './setup.js';
 
 describe('Booking Endpoints', () => {
   let testUser;
   let testRoom;
 
   beforeEach(async () => {
-    await prisma.booking.deleteMany();
-    await prisma.user.deleteMany();
-    await prisma.room.deleteMany();
+    await resetDatabase(prisma);
 
-    // Create test fixtures
-    testUser = await prisma.user.create({
-      data: { email: 'booker@example.com', name: 'Test Booker' },
-    });
-
-    testRoom = await prisma.room.create({
-      data: { name: 'Test Room', capacity: 10},
-    });
+    await createTestFixtures(prisma).then(({ user, room }) => {
+        testUser = user;
+        testRoom = room;
+      });
 
     // Mock current time to a fixed point freeze time for testing bookings in the past. 19.1.2026 09:00 UTC
     jest.spyOn(timeUtils, 'getCurrentTime').mockReturnValue(new Date('2026-01-19T09:00:00Z'));

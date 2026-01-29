@@ -41,7 +41,7 @@ export const resetDatabase = async (prisma) => {
 export const createTestFixtures = async (prisma) => {
   const user = await prisma.user.create({
     data: {
-      email: 'test@example.com',
+      email: 'booker@example.com',
       name: 'Test User',
     },
   });
