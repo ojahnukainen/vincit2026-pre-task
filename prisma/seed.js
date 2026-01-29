@@ -27,7 +27,8 @@ async function main() {
     create: {
       name: 'Music room',
       capacity: 10,
-    },  
+      keyFeatures: '[Piano, Sound System, Acoustic Guitar, Upright Bass]',
+    }
   })
     const movieRoom = await prisma.room.upsert({
     where: { name: 'Movie room' },
@@ -35,6 +36,7 @@ async function main() {
     create: {
       name: 'Movie room',
       capacity: 75,
+      keyFeatures: '[Projector, Surround Sound, Comfortable Seating]',
     },  
   })
 

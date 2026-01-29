@@ -4,11 +4,13 @@ import * as roomService from '../services/roomService.js';
 const createRoomSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   capacity: z.number().int().positive('Capacity must be a positive integer'),
+  keyFeatures: z.string().optional(),
 });
 
 const updateRoomSchema = z.object({
   name: z.string().min(1, 'Name cannot be empty').optional(),
   capacity: z.number().int().positive('Capacity must be a positive integer').optional(),
+  keyFeatures: z.string().optional(),
 });
 
 const idParamSchema = z.object({
@@ -111,7 +113,7 @@ export const update = async (req, res, next) => {
         throw error;
       }
     }
-
+    
     const room = await roomService.updateRoom(id, data);
     res.json(room);
   } catch (error) {
