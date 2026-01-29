@@ -3,6 +3,7 @@ import * as bookingService from '../services/bookingService.js';
 import * as userService from '../services/userService.js';
 import * as roomService from '../services/roomService.js';
 import timeUtils, { getCurrentTime } from '../utils/time.js';
+import { de } from 'zod/locales';
 
 const dateSchema = z.string().datetime({ message: 'Invalid ISO 8601 date format' }).transform((str) => new Date(str));
 
@@ -11,6 +12,7 @@ const createBookingSchema = z.object({
   roomId: z.number().int().positive('Room ID must be a positive integer'),
   startTime: dateSchema,
   endTime: dateSchema,
+  description: z.string().optional(),
 }).refine((data) => data.endTime > data.startTime, {
   message: 'End time must be after start time',
   path: ['endTime'],
@@ -19,6 +21,7 @@ const createBookingSchema = z.object({
 const updateBookingSchema = z.object({
   startTime: dateSchema.optional(),
   endTime: dateSchema.optional(),
+  description: z.string().optional(),
   status: z.enum(['confirmed', 'cancelled', 'completed']).optional(),
 }).refine((data) => {
   if (data.startTime && data.endTime) {

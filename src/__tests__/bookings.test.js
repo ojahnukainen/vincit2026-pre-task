@@ -42,6 +42,7 @@ describe('Booking Endpoints', () => {
         data: {
           userId: testUser.id,
           roomId: testRoom.id,
+          description: 'Test Booking',
           startTime: new Date('2026-01-21T10:00:00Z'),
           endTime: new Date('2026-01-21T12:00:00Z'),
         },
@@ -55,6 +56,7 @@ describe('Booking Endpoints', () => {
       expect(res.body[0].room).toBeDefined();
       expect(res.body[0].user.email).toBe('booker@example.com');
       expect(res.body[0].room.name).toBe('Test Room');
+      expect(res.body[0].description).toBe('Test Booking');
       });
     });
 
@@ -66,6 +68,7 @@ describe('Booking Endpoints', () => {
             roomId: testRoom.id,
             startTime: new Date('2026-01-21T10:00:00Z'),
             endTime: new Date('2026-01-21T12:00:00Z'),
+            description: 'Test Booking',
           },
         });
 
@@ -74,6 +77,7 @@ describe('Booking Endpoints', () => {
         expect(res.status).toBe(200);
         expect(res.body.user.email).toBe('booker@example.com');
         expect(res.body.room.name).toBe('Test Room');
+        expect(res.body.description).toBe('Test Booking');
       });
 
       it('should return 404 for non-existent booking', async () => {
@@ -93,6 +97,7 @@ describe('Booking Endpoints', () => {
             roomId: testRoom.id,
             startTime: '2026-01-21T10:00:00Z',
             endTime: '2026-01-21T12:00:00Z',
+            description: 'Test Booking',
           });
 
         expect(res.status).toBe(201);
@@ -101,6 +106,7 @@ describe('Booking Endpoints', () => {
         expect(res.body.status).toBe('confirmed');
         expect(res.body.user).toBeDefined();
         expect(res.body.room).toBeDefined();
+        expect(res.body.description).toBe('Test Booking');
       });
 
       it('should return 404 for non-existent user', async () => {
