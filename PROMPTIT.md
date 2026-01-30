@@ -2467,4 +2467,155 @@ Claude inputs
   const adapter = new PrismaBetterSqlite3({ url: `file:${dbPath}` });                                                                                                                                                                                                                                            
   const prisma = new PrismaClient({ adapter }); 
 
-  This matches the pattern already used in your src/utils/prisma.js file.       
+  This matches the pattern already used in your src/utils/prisma.js file.
+
+  voisitko tehdä kielenhuollon seuraavalle readme.md git repository viestille: # Vincit esitehtävä 2026
+### Pohjustus
+Projektin tarkoitus on tutustua ja pohtia LLM mahdollisuuksiin toimia juniori devaajana. LLM:n luotua toimiva projekti, olen tehnyt muutoksia ja korjauksia jotta projekti vastaisi parimmin annettua vaatimuksia. Tehtävässä on käytetty sekä Google Geminiä sekä Claude Codea.
+### Projektin ominaisuudet
+* Pystyy luomaan, päivittämään, poistamaan käyttäjän
+* Pystyy luomaan, päivittämään, poistamaan huoneen
+* Pystyy varaamaan huoneen jos se on vapaa ja varaus ei mene päällekkäin tai ole menneisyydessä.
+### Asennusohjeet
+Projetin oltus on että olet asentanut node.js
+1. Clone this repository [here](https://github.com/blackdevelopa/ProjectSupport.git).
+2. Asennetaan node paketit
+    ```bash
+    npm install
+    ```
+3. Luodaan ja alustetaan sqlite3 tietokanta
+    ```bash
+    npx prisma generate 
+    ```
+4. Lisätään tietokantaan dataa jotta testaaminen on mielkkäämppää
+    ```bash
+    npx prisma db seed
+    ```
+
+### Käyttö
+1. Käynnistetään node
+    ```bash
+    npm run start
+    ```
+2. API endpoint toimii portissa 3000
+3. (Vapaaehtoinen) Repositorion juuresta löytyy Postman JSON tiedostot joissa on asetettu valmiiksi perust API kutsut testaamista helpottamaan
+### API Endpoints
+| HTTP Verbs | Endpoints | Action |
+| --- | --- | --- |
+| POST | /user | Luodaan uusi käyttäjä |
+| POST | /room | Luodaan uusi huone |
+| POST | /booking | Luodaan uusi varaus |
+| GET | /user | Haetaan kaikki käyttäjät |
+| GET | /room | Haetaan kaikki huoneet |
+| GET | /booking | Haetaan kaikki varaukset |
+| GET | /user:Id | Haetaan yksittäinen käyttäjä id:n perusteella |
+| GET | /room:Id | Haetaan yksittäinen huone id:n perusteella |
+| GET | /booking:Id | Haetaan yksittäinen varaus id:n perusteella |
+| PUT | /user:Id | Päivitettään yksittäinen käyttäjä id:n perusteella |
+| PUT | /room:Id | Päivitettään yksittäinen huone id:n perusteella |
+| PUT | /booking:Id | Päivitettään yksittäinen varaus id:n perusteella |
+| DELETE | /user:Id | Poistetaan yksittäinen käyttäjä id:n perusteella |
+| DELETE | /room:Id | Poistetaan yksittäinen huone id:n perusteella |
+| DELETE | /booking:Id | Poistetaan yksittäinen varaus id:n perusteella |
+### Technologies Used
+* Node.js
+* Prisma ORM
+* SQLite
+* ZOD
+* JEST
+* Postman
+
+Tässä on ehdotukseni README.md-tiedoston parantamiseksi. Olen tehnyt kaksi versiota:Korjattu versio: Korjaa kirjoitusvirheet ja kieliopin säilyttäen alkuperäisen rakenteen.Viimeistelty versio: Muotoilee tekstin ammattimaisemmaksi ja selkeämmäksi (suositus).1. Korjattu versio (Vain virheiden korjaus)Tässä versiossa on korjattu kirjoitusvirheet (kuten "oltus", "mielkkäämppää", "päivitettään") ja parannettu lauserakenteita.Markdown# Vincit esitehtävä 2026
+
+### Johdanto
+Projektin tarkoituksena on tutustua LLM:ien mahdollisuuksiin toimia juniorikehittäjänä. Kun tekoäly oli luonut toimivan pohjan, tein projektiin muutoksia ja korjauksia, jotta se vastaisi paremmin annettuja vaatimuksia. Tehtävässä on hyödynnetty sekä Google Geminiä että Claude Codea.
+
+### Projektin ominaisuudet
+* Käyttäjien luonti, päivitys ja poisto
+* Huoneiden luonti, päivitys ja poisto
+* Huoneiden varaaminen (tarkistaa, että huone on vapaa, varaus ei mene päällekkäin toisen kanssa eikä kohdistu menneisyyteen)
+
+### Asennusohjeet
+Projektin oletuksena on, että olet asentanut Node.js:n.
+
+1. Kloonaa tämä repositorio: [Linkki](https://github.com/blackdevelopa/ProjectSupport.git)
+2. Asenna Node-paketit:
+    ```bash
+    npm install
+    ```
+3. Luo ja alusta SQLite3-tietokanta:
+    ```bash
+    npx prisma generate
+    ```
+4. Lisää tietokantaan dataa, jotta testaaminen on mielekkäämpää:
+    ```bash
+    npx prisma db seed
+    ```
+
+### Käyttö
+1. Käynnistä sovellus:
+    ```bash
+    npm run start
+    ```
+2. API toimii portissa 3000.
+3. (Vapaaehtoinen) Repositorion juuresta löytyy Postman JSON -tiedosto, johon on asetettu valmiiksi API-kutsut testaamisen helpottamiseksi.
+
+### API Endpoints
+| HTTP Verb | Endpoint | Toiminto |
+| --- | --- | --- |
+| POST | /user | Luo uusi käyttäjä |
+| POST | /room | Luo uusi huone |
+| POST | /booking | Luo uusi varaus |
+| GET | /user | Hae kaikki käyttäjät |
+| GET | /room | Hae kaikki huoneet |
+| GET | /booking | Hae kaikki varaukset |
+| GET | /user/:id | Hae yksittäinen käyttäjä ID:n perusteella |
+| GET | /room/:id | Hae yksittäinen huone ID:n perusteella |
+| GET | /booking/:id | Hae yksittäinen varaus ID:n perusteella |
+| PUT | /user/:id | Päivitä yksittäinen käyttäjä ID:n perusteella |
+| PUT | /room/:id | Päivitä yksittäinen huone ID:n perusteella |
+| PUT | /booking/:id | Päivitä yksittäinen varaus ID:n perusteella |
+| DELETE | /user/:id | Poista yksittäinen käyttäjä ID:n perusteella |
+| DELETE | /room/:id | Poista yksittäinen huone ID:n perusteella |
+| DELETE | /booking/:id | Poista yksittäinen varaus ID:n perusteella |
+
+### Käytetyt teknologiat
+* Node.js
+* Prisma ORM
+* SQLite
+* ZOD
+* JEST
+* Postman
+2. Viimeistelty versio (Suositus)Tämä versio on jäsennellympi. Muutin otsikot johdonmukaisemmiksi, selkeytin API-taulukkoa ja korjasin URL-polkujen merkintätavan (:id on standardi tapa merkitä parametri, kun taas alkuperäinen user:Id näyttää siltä kuin ID olisi osa polun nimeä ilman kauttaviivaa).Markdown# Vincit esitehtävä 2026
+
+## 📖 Johdanto
+Projektin tavoitteena on tutkia LLM:ien (Large Language Model) kykyä toimia "juniorikehittäjänä". Tekoälyn luoman pohjan jälkeen koodiin on tehty manuaalisia muutoksia ja korjauksia, jotta projekti vastaisi paremmin annettuja vaatimuksia. Kehityksessä on hyödynnetty Google Geminiä ja Claude Codea.
+
+## 🚀 Ominaisuudet
+Sovellus tarjoaa rajapinnan seuraaviin toimintoihin:
+* **Käyttäjät:** Luonti, päivitys, poisto ja haku.
+* **Huoneet:** Luonti, päivitys, poisto ja haku.
+* **Varaukset:**
+    * Huoneen varaaminen vapaana aikana.
+    * Validointi: Estää päällekkäiset varaukset ja menneisyyteen kohdistuvat varaukset.
+
+## 🛠 Asennus ja käyttöönotto
+
+**Esivaatimukset:** [Node.js](https://nodejs.org/) tulee olla asennettuna.
+
+1. **Kloonaa repositorio**
+   ```bash
+   git clone [https://github.com/blackdevelopa/ProjectSupport.git](https://github.com/blackdevelopa/ProjectSupport.git)
+   cd ProjectSupport
+Asenna riippuvuudetBashnpm install
+Alusta tietokanta (Prisma & SQLite)Generoi Prisma client:Bashnpx prisma generate
+(Huom: Mikäli tietokantatiedostoa ei vielä ole, saatat tarvita ensin komennon npx prisma db push tai npx prisma migrate dev)Lisää testidataa (Seeding)Tietokannan täyttäminen tekee testaamisesta mielekkäämpää:Bashnpx prisma db seed
+▶️ KäyttöKäynnistä palvelinBashnpm run start
+Palvelin käynnistyy oletuksena porttiin 3000.Testaus PostmanillaRepositorion juuresta löytyy valmis Postman-kokoelma (JSON), joka sisältää valmiit API-kutsut testausta varten.📡 API-rajapinnatMetodiPolkuKuvausPOST/userLuo uusi käyttäjäGET/userHae kaikki käyttäjätGET/user/:idHae käyttäjä ID:n perusteellaPUT/user/:idPäivitä käyttäjän tiedotDELETE/user/:idPoista käyttäjäPOST/roomLuo uusi huoneGET/roomHae kaikki huoneetGET/room/:idHae huone ID:n perusteellaPUT/room/:idPäivitä huoneen tiedotDELETE/room/:idPoista huonePOST/bookingLuo uusi varausGET/bookingHae kaikki varauksetGET/booking/:idHae varaus ID:n perusteellaPUT/booking/:idPäivitä varauksen tiedotDELETE/booking/:idPoista varaus💻 Käytetyt teknologiatRuntime: Node.jsDatabase: SQLite & Prisma ORMValidation: ZodTesting: JestTools: Postman
+### Tärkeimmät korjaukset selitettynä:
+* **Kielioppi:** "Projetin oltus" $\rightarrow$ "Projektin oletus/esivaatimukset". "mielkkäämppää" $\rightarrow$ "mielekkäämpää". "Päivitettään" $\rightarrow$ "Päivitetään".
+* **Lauserakenteet:** "vastaisi parimmin annettua vaatimuksia" $\rightarrow$ "vastaisi paremmin annettuja vaatimuksia".
+* **API-polut:** Muutin muotoon `/user/:id` (tai `/user/{id}` on myös ok). Alkuperäinen `/user:Id` on teknisesti epätavallinen ja voi olla hämäävä.
+* **Rakenne:** Lisäsin selkeät väliotsikot ja muotoilut, jotta dokumentti on helppolukuisempi.
+
+Haluaisitko, että teen vielä muutoksia johonkin tiettyyn osioon?
