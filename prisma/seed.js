@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
-const { PrismaClient } = require('.prisma/client');
+const { PrismaClient } = require('../node_modules/.prisma/client/client.js');
 
 const dbPath = path.join(__dirname, '../dev.db');
 const adapter = new PrismaBetterSqlite3({ url: `file:${dbPath}` });

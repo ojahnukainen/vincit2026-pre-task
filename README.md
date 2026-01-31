@@ -22,11 +22,19 @@ Sovellus tarjoaa rajapinnan seuraaviin toimintoihin:
     ```bash
     npm install
     ```
-3. Alusta tietokanta:
+3. Luo ja kopioi tietokannan lokaatio .env tiedostoon
+   ```bash
+    echo "DATABASE_URL='file:./dev.db'" >> .env
+    ``` 
+4. Luodaan prisma tiedostot
+    ```bash
+    npx prisma generate
+    ```
+5. Alusta tietokanta:
     ```bash
     npx prisma migrate dev
     ```
-4. Lisää testidataa (Seeding) Tietokannan täyttäminen tekee testaamisesta mielkkäämpää:
+6. Lisää testidataa (Seeding) Tietokannan täyttäminen tekee testaamisesta mielkkäämpää:
     ```bash
     npx prisma db seed
     ```
