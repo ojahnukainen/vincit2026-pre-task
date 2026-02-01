@@ -34,7 +34,14 @@ Sovellus tarjoaa rajapinnan seuraaviin toimintoihin:
     ```bash
     npx prisma migrate dev
     ```
-6. Lisää testidataa (Seeding) Tietokannan täyttäminen tekee testaamisesta mielkkäämpää:
+6. Alustetaan testien tietokanta:
+    ```bash
+    sqlite3 dev.db '.schema' > db.schema
+    sqlite3 test.db < db.schema
+    ```
+    Testi saattaa ilmoittaa ```"Parse error near line 18: object name reserved for internal use: sqlite_sequence"```mutta se ei vaikuta testien ajamiseen
+
+7. Lisää testidataa (Seeding) Tietokannan täyttäminen tekee API:n käyttämisestä mielkkäämpää:
     ```bash
     npx prisma db seed
     ```
@@ -46,6 +53,10 @@ Sovellus tarjoaa rajapinnan seuraaviin toimintoihin:
     ```
 2. API toimii portissa 3000.
 3. Testaus Postmanilla Repositorion juuresta löytyy valmis Postman-kokoelma (JSON), joka sisältää valmiit API-kutsut testausta varten.
+4. Yksikkötestit ajetaan:
+     ```bash
+    npm run test
+    ```
 
 ### API Endpoints
 | HTTP Verb | Endpoint | Toiminto |
